@@ -71,26 +71,5 @@ namespace MagicTheGathering
             Console.WriteLine($"\tDefense: {this.defense}");
             Console.WriteLine("--------------------------------------------");
         }
-
-        public static bool canCast(Land[] landen, Creature creature)
-        {
-            int[] counts = new int[5];
-            foreach (Land l in landen)
-            {
-                if (l.Mana == Land.ManaType.Water) counts[0]++;
-                if (l.Mana == Land.ManaType.Bos) counts[1]++;
-                if (l.Mana == Land.ManaType.Zon) counts[2]++;
-                if (l.Mana ==Land.ManaType.Vuur) counts[3]++;
-                if (l.Mana == Land.ManaType.Dood) counts[4]++;
-            }
-            int sum = counts.Sum();
-            if (creature.CastingCost.ColoredTypeNeeded == Land.ManaType.Water && counts[0] >= creature.CastingCost.AmountColoredNeeded && (sum-creature.CastingCost.AmountColoredNeeded) >= creature.CastingCost.AmountUncoloredNeeded) { return true; }
-            else if (creature.CastingCost.ColoredTypeNeeded == Land.ManaType.Bos && counts[1] >= creature.CastingCost.AmountColoredNeeded && (sum - creature.CastingCost.AmountColoredNeeded) >= creature.CastingCost.AmountUncoloredNeeded) { return true; }
-            else if (creature.CastingCost.ColoredTypeNeeded == Land.ManaType.Zon && counts[2] >= creature.CastingCost.AmountColoredNeeded && (sum - creature.CastingCost.AmountColoredNeeded) >= creature.CastingCost.AmountUncoloredNeeded) { return true; }
-            else if (creature.CastingCost.ColoredTypeNeeded == Land.ManaType.Vuur && counts[3] >= creature.CastingCost.AmountColoredNeeded && (sum - creature.CastingCost.AmountColoredNeeded) >= creature.CastingCost.AmountUncoloredNeeded) { return true; }
-            else if (creature.CastingCost.ColoredTypeNeeded == Land.ManaType.Dood && counts[4] >= creature.CastingCost.AmountColoredNeeded && (sum - creature.CastingCost.AmountColoredNeeded) >= creature.CastingCost.AmountUncoloredNeeded) { return true; }
-            else { return false; }
-        }
-
     }
 }

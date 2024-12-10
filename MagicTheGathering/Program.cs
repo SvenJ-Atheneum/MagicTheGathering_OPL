@@ -87,7 +87,7 @@ namespace MagicTheGathering
                     Creature cr = creatures[chosenOne - 1];
                     Console.WriteLine("--------------------------------------------");
                     Console.WriteLine($"You try to cast a {cr.CreatureName.ToUpper()}!");
-                    if (Creature.canCast(landen, cr))
+                    if (canCast(landen, cr))
                     {
                         Console.WriteLine("Creature can be casted.");
                     }
@@ -95,15 +95,32 @@ namespace MagicTheGathering
                     {
                         Console.WriteLine("Creature can NOT be casted.");
                     }
-                    Console.WriteLine("Do you want to try to cast a different creature? (y/N)");
+                    Console.WriteLine("Do you want to try to cast a different creature? (y/n)");
                     char ch = Convert.ToChar(Console.ReadLine());
                     if (ch != 'y') castStop = true;
                 }
-                Console.WriteLine("Do you want to try with different Land? (y/N)");
+                Console.WriteLine("Do you want to try with different Land? (y/n)");
                 char c = Convert.ToChar(Console.ReadLine());
                 if (c != 'y') stop = true;
             }
 
+        }
+
+        public static bool canCast(Land[] landen, Creature creature)
+        {
+            int count = 0;
+            int total = landen.Length;
+            Land.ManaType type = creature.CastingCost.ColoredTypeNeeded;
+
+            foreach (Land land in landen)
+            {                
+                if (land.Mana == type)
+                {
+                    count++;
+                }
+            }
+            return creature.CastingCost.AmountColoredNeeded <= count && creature.CastingCost.AmountUncoloredNeeded <= (total - count);
+            
         }
     }
 }
